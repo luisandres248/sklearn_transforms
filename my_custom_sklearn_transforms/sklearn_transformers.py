@@ -33,7 +33,7 @@ class OutlierExtractor(BaseEstimator, TransformerMixin):
         X2, Y2 = X2[mask, :], Y2[mask]
         print(X2.shape)
         print(Y2.shape)
-        X_train2 = pd.DataFrame.from_records(data=X2,columns=X.columns)
+        X_train2 = X2
         Y_train2 = Y2
 
         return (X_train2, Y_train2)
