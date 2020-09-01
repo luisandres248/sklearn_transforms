@@ -2,14 +2,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.ensemble import IsolationForest
 from sklearn.impute import SimpleImputer
 
-si = SimpleImputer(
-    missing_values=np.nan,  # los valores que faltan son del tipo ``np.nan`` (Pandas estándar)
-    strategy= 'mean',
-    #fill_value= 0,# la estrategia elegida es cambiar el valor faltante por una constante
-      # la constante que se usará para completar los valores faltantes es un int64 = 0
-    verbose=0,
-    copy=True)
-
 
 # All sklearn Transforms must have the `transform` and `fit` methods
 class DropColumns(BaseEstimator, TransformerMixin):
@@ -34,6 +26,7 @@ class OutlierExtractor(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X, Y):
+        si = SimpleImputer( missing_values=np.nan,strategy= 'mean',verbose=0,copy=True)
         # Primero copiamos el dataframe de datos de entrada 'X'
         X2 = si.fit_transform(X)
         Y2 = Y.to_numpy()
