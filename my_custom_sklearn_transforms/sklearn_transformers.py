@@ -25,8 +25,8 @@ class OutlierExtractor(BaseEstimator, TransformerMixin):
 
     def transform(self, X, Y):
         # Primero copiamos el dataframe de datos de entrada 'X'
-        X2 = X.to_numpy()
-        Y2 = Y.to_numpy()
+        X2 = X
+        Y2 = Y
         iso = IsolationForest(n_estimators=400,contamination=0.3,random_state=42)
         yhat = iso.fit_predict(X2)
         mask = yhat != -1
