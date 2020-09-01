@@ -1,7 +1,5 @@
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.ensemble import IsolationForest
-from sklearn.impute import SimpleImputer
-
 
 # All sklearn Transforms must have the `transform` and `fit` methods
 class DropColumns(BaseEstimator, TransformerMixin):
@@ -26,9 +24,8 @@ class OutlierExtractor(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X, Y):
-        si = SimpleImputer( missing_values=np.nan,strategy= 'mean',verbose=0,copy=True)
         # Primero copiamos el dataframe de datos de entrada 'X'
-        X2 = si.fit_transform(X)
+        X2 = X.to_numpy()
         Y2 = Y.to_numpy()
         iso = IsolationForest(n_estimators=400,contamination=0.3,random_state=42)
         yhat = iso.fit_predict(X2)
